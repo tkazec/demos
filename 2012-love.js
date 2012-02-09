@@ -3,19 +3,15 @@
 
 var WIDTH = c.width = 960,
 	HEIGHT = c.height = 540,
-	RADIAN = Math.PI * 2,
-	GRAV = 1.1;
-
-var frame = 0,
 	hibana = [];
 
 function burst (blast, count, speed, size, color) {
 	for (var i = 0; i < count; i++) {
-		var angle = RADIAN * Math.random(), velocity = speed * Math.random();
+		var angle = Math.PI * 2 * Math.random(), velocity = speed * Math.random();
 		
 		hibana.push({
-			x: 480, // px
-			y: 180, // py
+			x: 480, // x
+			y: 180, // y
 			j: velocity * Math.cos(angle), // vx
 			k: velocity * Math.sin(angle), // vy
 			s: 0.97 + ((blast - 100) / 1000), // spread
@@ -25,18 +21,27 @@ function burst (blast, count, speed, size, color) {
 	}
 }
 
+function heart (x, y, s) {
+	var s1 = .48 * s, s2 = .24 * s, s3 = .336 * s;
+	
+	a.beginPath();
+	a.moveTo(x - s1, y);
+	a.lineTo(x, y + s1);
+	a.arc(x + s2, y - s2, s3, 0.25 * Math.PI, 1.25 * Math.PI, true);
+	a.arc(x - s2, y - s2, s3, 1.75 * Math.PI, 0.75 * Math.PI, true);
+	a.fill();
+}
+
 function render () {
 	hibana.forEach(function(s, ind, arr){
-		s.x += s.j;
-		s.y += s.k;
-		s.j *= s.s;
-		s.k *= s.s;
-		s.y += GRAV;
+		s.x += s.j; // x+vx
+		s.y += s.k; // y+vy
+		s.j *= s.s; // vx*spread
+		s.k *= s.s; // vy*spread
+		s.y += 1.1; // y+gravity
 		
-		a.fillStyle = frame % 2 ? "rgba(256, 256, 256, 0.8)" : s.c;
-		a.beginPath();
-		a.arc(s.x, s.y, s.r, 0, RADIAN, true);
-		a.fill();
+		a.fillStyle = !Math.floor(Math.random() * 4) ? "rgba(256, 256, 256, 0.8)" : s.c;
+		heart(s.x, s.y, s.r);
 		
 		if ((s.r *= s.s) < 0.1) {
 			delete arr[ind];
@@ -46,8 +51,9 @@ function render () {
 	a.fillStyle = "rgba(0, 0, 0, 0.3)";
 	a.fillRect(0, 0, WIDTH, HEIGHT);
 	
-	frame++;
 	setTimeout(render, 1000 / 60);
 }
 
 render();
+
+burst(100, 150, 5, 10, "#FF2000");

@@ -3,26 +3,35 @@
 
 var WIDTH = c.width = 960,
 	HEIGHT = c.height = 540,
-	hibana = [];
+	hanabi = [],
+	queue = [],
+	w = this,
+	r = "equestAnimationFrame",
+	animFrame = w["r"+r] || w["webkitR"+r] || w["mozR"+r] || w["msR"+r] || w["oR"+r] || function(cb){ setTimeout(cb, 1000 / 60); };
 
-function burst (blast, count, speed, size, color) {
-	for (var i = 0; i < count; i++) {
+function burst (x, y, size, speed, spread, count) {
+	var list = [];
+	
+	for (; count--;) {
 		var angle = Math.PI * 2 * Math.random(), velocity = speed * Math.random();
 		
-		hibana.push({
-			x: 480, // x
-			y: 180, // y
+		list.push({
+			x: x, // x
+			y: y, // y
 			j: velocity * Math.cos(angle), // vx
 			k: velocity * Math.sin(angle), // vy
-			s: 0.97 + ((blast - 100) / 1000), // spread
-			r: size, // radius
-			c: color // color
+			s: 0.97 + ((spread - 100) / 1000), // spread, 0-129
+			r: size + Math.floor(Math.random() * 6) // radius
 		});
 	}
+	
+	return list;
 }
 
 function heart (x, y, s) {
-	var s1 = .48 * s, s2 = .24 * s, s3 = .336 * s;
+	var s1 = .48 * s,
+		s2 = .24 * s,
+		s3 = .336 * s;
 	
 	a.beginPath();
 	a.moveTo(x - s1, y);
@@ -32,28 +41,43 @@ function heart (x, y, s) {
 	a.fill();
 }
 
-function render () {
-	hibana.forEach(function(s, ind, arr){
-		s.x += s.j; // x+vx
-		s.y += s.k; // y+vy
-		s.j *= s.s; // vx*spread
-		s.k *= s.s; // vy*spread
-		s.y += 1.1; // y+gravity
+(function render () {
+	if (!hanabi.length && queue.length) {
+		var set = queue.shift();
 		
-		a.fillStyle = !Math.floor(Math.random() * 4) ? "rgba(256, 256, 256, 0.8)" : s.c;
-		heart(s.x, s.y, s.r);
+		for (var delay in set) {
+			setTimeout(function(list){
+				hanabi = hanabi.concat(list);
+			}, delay * (1000 / 60), set[delay]); // ie?
+		}
+	}
+	
+	hanabi.forEach(function(h, i){
+		h.x += h.j; // x+vx
+		h.y += h.k; // y+vy
+		h.j *= h.s; // vx*spread
+		h.k *= h.s; // vy*spread
+		h.y += 1.1; // y+gravity
 		
-		if ((s.r *= s.s) < 0.1) {
-			delete arr[ind];
+		a.fillStyle = !Math.floor(Math.random() * 4) ? "rgba(256,256,256,.8)" : "#F20";
+		heart(h.x, h.y, h.r);
+		
+		if ((h.r *= h.s) < 0.1) {
+			hanabi.splice(i, 1);
 		}
 	});
 	
-	a.fillStyle = "rgba(0, 0, 0, 0.3)";
+	a.fillStyle = "rgba(0,0,0,.3)";
 	a.fillRect(0, 0, WIDTH, HEIGHT);
 	
-	setTimeout(render, 1000 / 60);
-}
+	animFrame(render);
+})();
 
-render();
-
-burst(100, 150, 5, 10, "#FF2000");
+hanabi = hanabi.concat(burst(
+	130 + Math.floor(Math.random() * 701), // x
+	130 + Math.floor(Math.random() * 151), // y
+	10, // size
+	5, // speed
+	100, // spread
+	150 // count
+));

@@ -4,12 +4,12 @@
 var WIDTH = c.width = 960,
 	HEIGHT = c.height = 540,
 	hanabi = [],
-	queue = [],
+	queue = 0,
 	w = this,
 	r = "equestAnimationFrame",
 	animFrame = w["r"+r] || w["webkitR"+r] || w["mozR"+r] || w["msR"+r] || w["oR"+r] || function(cb){ setTimeout(cb, 1000 / 60); };
 
-function burst (x, y, size, speed, spread, count) {
+function burst (x, y, size, speed, spread, count, delay) {
 	var list = [];
 	
 	for (; count--;) {
@@ -25,7 +25,7 @@ function burst (x, y, size, speed, spread, count) {
 		});
 	}
 	
-	return list;
+	setTimeout(function(){ hanabi = hanabi.concat(list); queue--; }, delay * (1000 / 60));
 }
 
 function heart (x, y, s) {
@@ -42,13 +42,17 @@ function heart (x, y, s) {
 }
 
 (function render () {
-	if (!hanabi.length && queue.length) {
-		var set = queue.shift();
-		
-		for (var delay in set) {
-			setTimeout(function(list){
-				hanabi = hanabi.concat(list);
-			}, delay * (1000 / 60), set[delay]); // ie?
+	if (!hanabi.length && !queue) {
+		for (var count = queue = Math.floor(Math.random() * 6); count--;) {
+			burst(
+				130 + Math.floor(Math.random() * 701), // x
+				130 + Math.floor(Math.random() * 151), // y
+				10, // size
+				5, // speed
+				100, // spread
+				150, // count
+				Math.floor(Math.random() * 120) // delay
+			);
 		}
 	}
 	
@@ -72,12 +76,3 @@ function heart (x, y, s) {
 	
 	animFrame(render);
 })();
-
-hanabi = hanabi.concat(burst(
-	130 + Math.floor(Math.random() * 701), // x
-	130 + Math.floor(Math.random() * 151), // y
-	10, // size
-	5, // speed
-	100, // spread
-	150 // count
-));

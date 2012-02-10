@@ -47,11 +47,11 @@ function heart (x, y, s) {
 			burst(
 				130 + Math.floor(Math.random() * 701), // x
 				130 + Math.floor(Math.random() * 151), // y
-				10, // size
-				5, // speed
-				100, // spread
-				150, // count
-				Math.floor(Math.random() * 120) // delay
+				5 + Math.floor(Math.random() * 16), // size
+				4 + Math.floor(Math.random() * 7), // speed
+				70 + Math.floor(Math.random() * 40), // spread
+				50 + Math.floor(Math.random() * 201), // count
+				Math.floor(Math.random() * 180) // delay
 			);
 		}
 	}

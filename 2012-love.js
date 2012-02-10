@@ -1,5 +1,6 @@
 // "Firehearts", for js1k 2012 (love) by @tkazec | <url>
 // b = body, c = cvs, a = ctx
+// CC checklist (advanced): revert animFrame changes, rm newlines, rm last semicolon
 
 var WIDTH = c.width = 960,
 	HEIGHT = c.height = 540,
@@ -10,7 +11,8 @@ var WIDTH = c.width = 960,
 	animFrame = w["r"+r] || w["webkitR"+r] || w["mozR"+r] || w["msR"+r] || w["oR"+r] || function(cb){ setTimeout(cb, 1000 / 60); };
 
 function burst (x, y, size, speed, spread, count, delay) {
-	var list = [];
+	var list = [],
+		color = "#" + ["F20", "F0F", "F6B", "C18", "408", "800"][Math.floor(Math.random() * 6)];
 	
 	for (; count--;) {
 		var angle = Math.PI * 2 * Math.random(), velocity = speed * Math.random();
@@ -21,7 +23,8 @@ function burst (x, y, size, speed, spread, count, delay) {
 			j: velocity * Math.cos(angle), // vx
 			k: velocity * Math.sin(angle), // vy
 			s: 0.97 + ((spread - 100) / 1000), // spread, 0-129
-			r: size + Math.floor(Math.random() * 6) // radius
+			r: size + Math.floor(Math.random() * 6), // radius
+			c: color // color
 		});
 	}
 	
@@ -63,7 +66,7 @@ function heart (x, y, s) {
 		h.k *= h.s; // vy*spread
 		h.y += 1.1; // y+gravity
 		
-		a.fillStyle = !Math.floor(Math.random() * 4) ? "rgba(256,256,256,.8)" : "#F20";
+		a.fillStyle = !Math.floor(Math.random() * 4) ? "rgba(256,256,256,.8)" : h.c;
 		heart(h.x, h.y, h.r);
 		
 		if ((h.r *= h.s) < 0.1) {

@@ -1,4 +1,4 @@
-// "Firehearts", for js1k 2012 (love) by @tkazec | <url>
+// "Firehearts", for js1k 2012/love | http://js1k.com/2012-love/demo/1074
 // b = body, c = cvs, a = ctx
 // CC checklist (advanced): revert animFrame changes, rm newlines, rm last semicolon, add wrapper
 

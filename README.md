@@ -1,5 +1,7 @@
 My [js1k](http://js1k.com/) demos! YAY
 
+1. [Firehearts](http://js1k.com/2012-love/demo/1074) ([Love '12](http://js1k.com/2012-love/))
+
 ---
 
 >Copyright (c) 2012 Teddy Cross

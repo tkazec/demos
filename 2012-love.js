@@ -4,7 +4,7 @@
 
 var w = this,
 	r = "equestAnimationFrame",
-	animFrame = w["r"+r] || w["webkitR"+r] || w["mozR"+r] || w["msR"+r] || w["oR"+r] || function(cb){ setTimeout(cb, 1000 / 60); };
+	animFrame = w["r"+r] || w["webkitR"+r] || w["mozR"+r] || w["msR"+r] || w["oR"+r] || function (cb) { setTimeout(cb, 1000 / 60); };
 
 var MATH = Math,
 	PI = MATH.PI,
@@ -34,7 +34,7 @@ function burst (x, y, size, speed, spread, count, delay) {
 		});
 	}
 	
-	setTimeout(function(){ hanabi = hanabi.concat(list); queue--; }, delay * (1000 / 60));
+	setTimeout(function () { hanabi = hanabi.concat(list); queue--; }, delay * (1000 / 60));
 }
 
 function heart (x, y, s) {
@@ -65,7 +65,7 @@ function heart (x, y, s) {
 		}
 	}
 	
-	hanabi.forEach(function(h, i){
+	hanabi.forEach(function (h, i) {
 		h.x += h.j; // x+vx
 		h.y += h.k; // y+vy
 		h.j *= h.s; // vx*spread

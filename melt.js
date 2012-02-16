@@ -1,6 +1,8 @@
-// b = body, c = cvs, a = ctx
-
 /*** setup ***/
+var w = this,
+	r = "equestAnimationFrame",
+	animFrame = w["r"+r] || w["webkitR"+r] || w["mozR"+r] || w["msR"+r] || w["oR"+r] || function (cb) { setTimeout(cb, 1000 / 60); };
+
 var DEG = Math.PI / 180;
 
 var WIDTH = c.width = 1280,
@@ -8,14 +10,14 @@ var WIDTH = c.width = 1280,
 	MASK = document.createElement("canvas"),
 	FADE = document.createElement("canvas"),
 	y = MASK.getContext("2d"),
-	z = FADE.getContext("2d");
+	z = FADE.getContext("2d"),
+	drips = [],
+	tick = 1800;
 
 b.style.background = "#000";
+c.style.background = "#FFF";
 c.style.display = "block";
 c.style.margin = "30px auto 0 auto";
-
-a.fillStyle = "#FFF";
-a.fillRect(0, 0, WIDTH, HEIGHT);
 
 MASK.width = FADE.width = 320;
 MASK.height = FADE.height = 430;
@@ -26,7 +28,7 @@ z.translate(160, 10);
 /*** mask & fade ***/
 var mask = function (x, fade) {
 	x.save();
-	x.fillStyle = fade ? "rgba(0,0,0,0.02)" : "#FFF";
+	x.fillStyle = fade ? "rgba(0,0,0,.02)" : "#FFF";
 	x.translate(0, 75);
 	x.beginPath();
 	x.rotate(5 * DEG);
@@ -68,7 +70,7 @@ for (var i = 90; i--;) {
 	var hue = i * 4,
 		pos = (i * 14) + 12.5;
 	
-	a.fillStyle = "hsl(" + hue + ",100%,70%)";
+	a.fillStyle = "hsl(" + hue + ",80%,70%)";
 	a.fillRect(pos - 0.5, 12, 10, 50);
 	
 	a.fillStyle = "hsl(" + hue + ",100%,40%)";
@@ -81,4 +83,28 @@ for (var i = 90; i--;) {
 	a.fill();
 }
 
-a.drawImage(MASK, 750, HEIGHT - 430);
+(function render () {
+	if (!Math.floor(Math.random() * 10)) {
+		var pos = Math.floor(Math.random() * 90);
+		
+		drips.push({
+			x: (pos * 14) + 17,
+			y: 70,
+			r: 2,
+			h: "hsl(" + (pos * 4) + ",100%,50%)"
+		});
+	}
+	
+	drips.forEach(function (d) {
+		d.x += 0.5 - Math.random();
+		d.y += Math.random() * 1.5;
+		d.r += 0.05 - (Math.random() / 10);
+		
+		a.fillStyle = d.h;
+		a.fillRect(d.x - d.r, d.y - d.r, d.r * 2, d.r * 2);
+	});
+	
+	a.drawImage(MASK, 750, HEIGHT - 430);
+	
+	--tick && animFrame(render);
+})();

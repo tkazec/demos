@@ -14,6 +14,9 @@ b.style.background = "#000";
 c.style.display = "block";
 c.style.margin = "30px auto 0 auto";
 
+a.fillStyle = "#FFF";
+a.fillRect(0, 0, WIDTH, HEIGHT);
+
 MASK.width = FADE.width = 320;
 MASK.height = FADE.height = 430;
 y.translate(160, 10);
@@ -61,7 +64,21 @@ mask(z, true);
 
 
 /*** canvas ***/
-a.fillStyle = "#00F";
-a.fillRect(0, 0, WIDTH, HEIGHT);
+for (var i = 90; i--;) {
+	var hue = i * 4,
+		pos = (i * 14) + 12.5;
+	
+	a.fillStyle = "hsl(" + hue + ",100%,70%)";
+	a.fillRect(pos - 0.5, 12, 10, 50);
+	
+	a.fillStyle = "hsl(" + hue + ",100%,40%)";
+	a.fillRect(pos, 10, 9, 2);
+	a.beginPath();
+	a.moveTo(pos, 60);
+	a.lineTo(pos + 3.5, 70);
+	a.lineTo(pos + 5.5, 70);
+	a.lineTo(pos + 9, 60);
+	a.fill();
+}
 
-a.drawImage(MASK, 750, 720 - 430);
+a.drawImage(MASK, 750, HEIGHT - 430);

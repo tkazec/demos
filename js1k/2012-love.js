@@ -1,6 +1,6 @@
-// "Firehearts", for js1k 2012/love | http://js1k.com/2012-love/demo/1074
+// "Firehearts" | http://js1k.com/2012-love/demo/1074
 // b = body, c = cvs, a = ctx
-// CC checklist (advanced): revert animFrame changes, rm newlines, rm last semicolon, add wrapper
+// Build steps: Run Closure Compiler advanced, revert animFrame changes, remove newlines, remove last semicolon, wrap in IIFE
 
 var w = this,
 	r = "equestAnimationFrame",

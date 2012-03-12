@@ -1,4 +1,3 @@
-// Firehearts
 // b = body, c = cvs, a = ctx
 // Build steps: Run Closure Compiler advanced, remove newlines, remove last semicolon, wrap in IIFE, run First Crush
 

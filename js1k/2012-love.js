@@ -1,6 +1,6 @@
 // Firehearts
 // b = body, c = cvs, a = ctx
-// Build steps: Run Closure Compiler advanced, remove newlines, remove last semicolon, run First Crush
+// Build steps: Run Closure Compiler advanced, remove newlines, remove last semicolon, wrap in IIFE, run First Crush
 
 var w = this,
 	r = "equestAnimationFrame",
@@ -42,18 +42,6 @@ function burst (x, y, size, speed, spread, count, delay) {
 	}, delay * (1000 / 60));
 }
 
-function rburst(x, y, delay) {
-	burst(
-		x, // x
-		y, // y
-		5 + FLOOR(RAND() * 16), // size
-		4 + FLOOR(RAND() * 7), // speed
-		70 + FLOOR(RAND() * 40), // spread
-		50 + FLOOR(RAND() * 201), // count
-		delay // delay
-	);
-}
-
 function heart (x, y, s) {
 	var s1 = .48 * s,
 		s2 = .24 * s,
@@ -70,9 +58,13 @@ function heart (x, y, s) {
 (function render () {
 	if (!hanabi.length && !queue) {
 		for (var count = queue = FLOOR(RAND() * 6); count--;) {
-			rburst(
+			burst(
 				130 + FLOOR(RAND() * 701), // x
 				130 + FLOOR(RAND() * 151), // y
+				5 + FLOOR(RAND() * 16), // size
+				4 + FLOOR(RAND() * 7), // speed
+				70 + FLOOR(RAND() * 40), // spread
+				50 + FLOOR(RAND() * 201), // count
 				FLOOR(RAND() * 150) // delay
 			);
 		}
@@ -102,9 +94,13 @@ function heart (x, y, s) {
 c.onclick = function (e) {
 	queue++;
 	
-	rburst(
+	burst(
 		e.pageX - this.offsetLeft, // x
 		e.pageY - this.offsetTop, // y
+		5 + FLOOR(RAND() * 16), // size
+		4 + FLOOR(RAND() * 7), // speed
+		70 + FLOOR(RAND() * 40), // spread
+		50 + FLOOR(RAND() * 201), // count
 		0 // delay
 	);
 };

@@ -21,7 +21,8 @@ function burst (x, y, size, speed, spread, count, delay) {
 		color = "#" + ["F20", "F0F", "F6B", "C18", "408", "800"][FLOOR(RAND() * 6)];
 	
 	for (; count--;) {
-		var angle = PI * 2 * RAND(), velocity = speed * RAND();
+		var angle = PI * 2 * RAND(),
+			velocity = speed * RAND();
 		
 		list.push({
 			x: x, // x

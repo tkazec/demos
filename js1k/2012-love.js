@@ -34,7 +34,23 @@ function burst (x, y, size, speed, spread, count, delay) {
 		});
 	}
 	
-	setTimeout(function () { hanabi = hanabi.concat(list); queue--; }, delay * (1000 / 60));
+	setTimeout(function () {
+		hanabi = hanabi.concat(list);
+		
+		queue--;
+	}, delay * (1000 / 60));
+}
+
+function rburst(x, y, delay) {
+	burst(
+		x, // x
+		y, // y
+		5 + FLOOR(RAND() * 16), // size
+		4 + FLOOR(RAND() * 7), // speed
+		70 + FLOOR(RAND() * 40), // spread
+		50 + FLOOR(RAND() * 201), // count
+		delay // delay
+	);
 }
 
 function heart (x, y, s) {
@@ -53,13 +69,9 @@ function heart (x, y, s) {
 (function render () {
 	if (!hanabi.length && !queue) {
 		for (var count = queue = FLOOR(RAND() * 6); count--;) {
-			burst(
+			rburst(
 				130 + FLOOR(RAND() * 701), // x
 				130 + FLOOR(RAND() * 151), // y
-				5 + FLOOR(RAND() * 16), // size
-				4 + FLOOR(RAND() * 7), // speed
-				70 + FLOOR(RAND() * 40), // spread
-				50 + FLOOR(RAND() * 201), // count
 				FLOOR(RAND() * 150) // delay
 			);
 		}
@@ -85,3 +97,13 @@ function heart (x, y, s) {
 	
 	animFrame(render);
 })();
+
+c.onclick = function (e) {
+	queue++;
+	
+	rburst(
+		e.pageX - this.offsetLeft, // x
+		e.pageY - this.offsetTop, // y
+		0 // delay
+	);
+};

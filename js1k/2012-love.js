@@ -1,6 +1,6 @@
-// "Firehearts" | http://js1k.com/2012-love/demo/1074
+// Firehearts
 // b = body, c = cvs, a = ctx
-// Build steps: Run Closure Compiler advanced, revert animFrame changes, remove newlines, remove last semicolon, wrap in IIFE
+// Build steps: Run Closure Compiler advanced, revert animFrame changes, remove newlines, remove last semicolon, wrap in IIFE, run First Crush
 
 var w = this,
 	r = "equestAnimationFrame",
@@ -60,7 +60,7 @@ function heart (x, y, s) {
 				4 + FLOOR(RAND() * 7), // speed
 				70 + FLOOR(RAND() * 40), // spread
 				50 + FLOOR(RAND() * 201), // count
-				FLOOR(RAND() * 180) // delay
+				FLOOR(RAND() * 150) // delay
 			);
 		}
 	}

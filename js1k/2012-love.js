@@ -1,6 +1,6 @@
 // Firehearts
 // b = body, c = cvs, a = ctx
-// Build steps: Run Closure Compiler advanced, revert animFrame changes, remove newlines, remove last semicolon, wrap in IIFE, run First Crush
+// Build steps: Run Closure Compiler advanced, remove newlines, remove last semicolon, run First Crush
 
 var w = this,
 	r = "equestAnimationFrame",
@@ -106,4 +106,26 @@ c.onclick = function (e) {
 		e.pageY - this.offsetTop, // y
 		0 // delay
 	);
+};
+
+b.onkeypress = function () {
+	[
+		               [480,350],
+		          [430,300],[530,300],
+		     [380,250],          [580,250],
+		[360,200],     [480,200],     [600,200],
+		     [410,160],          [550,160]
+	].forEach(function (xy) {
+		queue++;
+		
+		burst(
+			xy[0], // x
+			xy[1], // y
+			50, // size
+			3, // speed
+			50, // spread
+			100, // count
+			0 // delay
+		);
+	});
 };

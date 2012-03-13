@@ -8,7 +8,7 @@ All of my demos! YAY
 
 **js1k**
 
-1. [Firehearts](http://js1k.com/2012-love/demo/1074) ([Love '12](http://js1k.com/2012-love/))
+1. [Firehearts](http://js1k.com/2012-love/demo/1252) ([Love '12](http://js1k.com/2012-love/)) - [Hacker News](http://news.ycombinator.com/item?id=3698543) - ["Creating Firehearts"](https://plus.google.com/114368870393867455297/posts/W1xiWydNqND).
 
 ---
 

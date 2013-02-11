@@ -1,4 +1,4 @@
-All of my demos! YAY
+ALL the demos.
 
 ---
 
@@ -12,4 +12,4 @@ All of my demos! YAY
 
 ---
 
-© 2013 [Teddy Cross](http://tkaz.ec), shared under the [MIT](http://www.opensource.org/licenses/MIT).
+© 2013 [Teddy Cross](http://tkaz.ec), shared under the [MIT License](http://www.opensource.org/licenses/MIT).

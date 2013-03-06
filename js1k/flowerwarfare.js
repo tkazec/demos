@@ -25,26 +25,38 @@ var score = Date.now();
 	
 	missiles.forEach(function (m) {
 		// move missile (dt)
-		// draw
+		a.strokeStyle = "#FFF";
+		a.beginPath();
+		a.moveTo(m.x, m.y);
+		a.lineTo(m.j, m.k);
+		a.stroke();
 		// convert to bursts
 	});
 	
 	bursts.forEach(function (b) {
 		// size
 		// draw
-		// check for collisions
+		// check for and burst on collisions
 	});
 	
 	a.fillStyle = "rgba(255,255,255,.3)"
+	
 	a.fillText(lives + " ♥ " + ((Date.now() - score) / 1000).toFixed(2), 10, 20);
 	
+	a.beginPath();
+	a.arc(WIDTH / 2, HEIGHT, 30, 0, Math.PI, true);
+	a.fill();
+	
 	lives && requestAnimationFrame(render);
-})()
+})();
 
 c.onclick = function (e) {
-	// create missiles
-	// e.pageX - this.offsetLeft
-	// e.pageY - this.offsetTop
+	missiles.push({
+		x: WIDTH / 2,
+		y: HEIGHT,
+		j: e.pageX - this.offsetLeft,
+		k: e.pageY - this.offsetTop
+	});
 };
 
 // http://js1k.com/2010-first/demo/680

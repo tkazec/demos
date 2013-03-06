@@ -1,10 +1,11 @@
-var WIDTH = 960;
-var HEIGHT = 540;
+var WIDTH = c.width = 960;
+var HEIGHT = c.height = 540;
 
-var rods = []
-var missiles = []
-var bursts = []
-var lives = 3
+var rods = [];
+var missiles = [];
+var bursts = [];
+var lives = 3;
+var score = Date.now();
 
 (function render () {
 	a.fillStyle = "rgba(0,0,0,.3)";
@@ -34,7 +35,8 @@ var lives = 3
 		// check for collisions
 	});
 	
-	// lives left
+	a.fillStyle = "rgba(255,255,255,.3)"
+	a.fillText(lives + " ♥ " + ((Date.now() - score) / 1000).toFixed(2), 10, 20);
 	
 	lives && requestAnimationFrame(render);
 })()

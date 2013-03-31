@@ -1,3 +1,12 @@
+var w = this,
+	r = "equestAnimationFrame",
+	animFrame = w["r"+r] || w["webkitR"+r] || w["mozR"+r] || w["msR"+r] || w["oR"+r] || function (cb) { setTimeout(cb, 1000 / 60); };
+
+var MATH = Math,
+	PI = MATH.PI,
+	FLOOR = MATH.floor,
+	RAND = MATH.random;
+
 var WIDTH = c.width = 960;
 var HEIGHT = c.height = 540;
 

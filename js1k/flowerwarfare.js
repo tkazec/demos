@@ -4,7 +4,7 @@ var HEIGHT = c.height = 540;
 var rods = [];
 var missiles = [];
 var bursts = [];
-var lives = 3;
+var lives = 5;
 var score = Date.now();
 
 var deathframes = 0;
@@ -28,12 +28,13 @@ Math.move = function (obj, speed) {
 			cx: tx,
 			cy: 0,
 			tx: Math.floor(Math.random() * WIDTH),
-			ty: HEIGHT
+			ty: HEIGHT,
+			s: 0.5 + ((Date.now() - score) / 50000)
 		});
 	}
 	
 	rods.forEach(function (r, i) {
-		Math.move(r, 0.5 + ((Date.now() - score) / 100000));
+		Math.move(r, r.s);
 		
 		a.strokeStyle = "hsl(" + (r.cy * (HEIGHT / 360)) + ",50%,50%)";
 		
@@ -42,18 +43,20 @@ Math.move = function (obj, speed) {
 		a.lineTo(r.cx, r.cy);
 		a.stroke();
 		
-		if (r.cy >= HEIGHT) {
+		if (r.d || r.cy >= HEIGHT) {
 			rods.splice(i, 1);
 			
-			lives--;
-			deathframes = 60;
+			if (!r.d) {
+				lives--;
+				deathframes = 60;
+			}
 		}
 	});
 	
 	missiles.forEach(function (m, i) {
 		Math.move(m, 6);
 		
-		a.strokeStyle = "#FFF";
+		a.strokeStyle = "#0F8";
 		
 		a.beginPath();
 		a.moveTo(WIDTH / 2, HEIGHT);
@@ -65,19 +68,41 @@ Math.move = function (obj, speed) {
 			
 			bursts.push({
 				x: m.cx,
-				y: m.cy
+				y: m.cy,
+				r: 0
 			});
 		}
 	});
 	
-	bursts.forEach(function (b) {
-		// size
-		// draw
-		// check for and burst on collisions
-		// (obj.x - target.x)*(obj.x - target.x) + (obj.y - target.y)*(obj.y - target.y) < rad*rad;
+	bursts.forEach(function (b, i) {
+		b.r++;
+		
+		a.fillStyle = "#FFF";
+		
+		a.beginPath();
+		a.arc(b.x, b.y, b.r, 0, Math.PI * 2, true);
+		a.fill();
+		
+		// todo draw flower, duh
+		
+		rods.forEach(function (r) {
+			if ((b.x - r.cx)*(b.x - r.cx) + (b.y - r.cy)*(b.y - r.cy) < b.r*b.r) {
+				r.d = true;
+				
+				bursts.push({
+					x: r.cx,
+					y: r.cy,
+					r: 0
+				});
+			}
+		});
+		
+		if (b.r === 50) {
+			bursts.splice(i, 1);
+		}
 	});
 	
-	a.fillStyle = "#FFF";
+	a.fillStyle = "#8F8";
 	
 	a.fillText(lives + " ♥ " + ((Date.now() - score) / 1000).toFixed(2), 10, 20);
 	

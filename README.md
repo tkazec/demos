@@ -8,7 +8,8 @@ ALL the demos.
 
 **js1k**
 
-1. [Firehearts](http://js1k.com/2012-love/demo/1252) ([Love '12](http://js1k.com/2012-love/)) - [Hacker News](http://news.ycombinator.com/item?id=3698543) - ["Creating Firehearts"](http://essays.tkaz.ec/creating-firehearts/).
+1. [Firehearts](http://js1k.com/2012-love/demo/1252) ([Love '12](http://js1k.com/2012-love/)) - [Hacker News](http://news.ycombinator.com/item?id=3698543) - Completed, see [Creating Firehearts](http://essays.tkaz.ec/creating-firehearts/).
+2. [Flower Warfare](http://js1k.com/2013-spring/demo/1559) ([Spring '13](http://js1k.com/2013-spring/)) - Unfinished.
 
 ---
 
